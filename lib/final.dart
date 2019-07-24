@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class FinalPage extends StatelessWidget {
   final  Map profile;
@@ -59,6 +60,11 @@ class FinalPage extends StatelessWidget {
               title: Text(profile['email']),
               subtitle: Text("Work"),
             ),
+            ListTile(
+              leading: Icon(Icons.calendar_today),
+              title:Text(DateFormat('yyyy,MM,dd').format(profile['birth']).toString()),
+              subtitle: Text("B-date"),
+            )
           ],
         ),
       ),

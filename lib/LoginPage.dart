@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:account_app/final.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:intl/intl.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,19 +11,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
-  String name;
-  String surname;
-  String email;
-  int phone;
-
   final _formKey = GlobalKey<FormState>();
 
-  Map<String,dynamic> _profile = {
-     "name":null,
-    "surname":null,
-    "email":null,
-    "phone":null,
+  DateTime date;
+  final format = DateFormat("EEEE, MMMM d, yyyy");
 
+  Map<String, dynamic> _profile = {
+    "name": null,
+    "surname": null,
+    "email": null,
+    "phone": null,
+    "birth": null,
   };
 
   @override
@@ -43,7 +43,7 @@ class LoginPageState extends State<LoginPage> {
                   },
                   onFieldSubmitted: (String value) {
                     setState(() {
-                      _profile ['name'] = value;
+                      _profile['name'] = value;
                     });
                   },
                   decoration: InputDecoration(
@@ -59,7 +59,7 @@ class LoginPageState extends State<LoginPage> {
                   },
                   onFieldSubmitted: (String value) {
                     setState(() {
-                      _profile ['surname']= value;
+                      _profile['surname'] = value;
                     });
                   },
                   decoration: InputDecoration(
@@ -75,7 +75,7 @@ class LoginPageState extends State<LoginPage> {
                   },
                   onFieldSubmitted: (String value) {
                     setState(() {
-                      _profile ['email']= value;
+                      _profile['email'] = value;
                     });
                   },
                   decoration: InputDecoration(
@@ -92,13 +92,25 @@ class LoginPageState extends State<LoginPage> {
                   keyboardType: TextInputType.number,
                   onFieldSubmitted: (String value) {
                     setState(() {
-                      _profile ['phone'] = int.parse(value);
+                      _profile['phone'] = int.parse(value);
                     });
                   },
                   decoration: InputDecoration(
                     labelText: 'Phone',
                   ),
                 ),
+                DateTimePickerFormField(
+                    format: format,
+                    editable: false,
+                    dateOnly: true,
+                    decoration: InputDecoration(
+                        labelText: 'Date', hasFloatingPlaceholder: false),
+                    onChanged: (dt) {
+                      date = dt;
+                      setState(() {
+                        _profile['birth'] = date;
+                      });
+                    }),
               ],
             ),
           ),
@@ -110,9 +122,7 @@ class LoginPageState extends State<LoginPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => FinalPage(
-                         _profile
-                        ),
+                    builder: (BuildContext context) => FinalPage(_profile),
                   ),
                 );
               }
