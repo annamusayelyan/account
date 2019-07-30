@@ -19,10 +19,31 @@ class LoginPageState extends State<LoginPage> {
   Map<String, dynamic> _profile = {
     "name": null,
     "surname": null,
+    "gender": null,
     "email": null,
     "phone": null,
     "birth": null,
   };
+
+  DropdownButton<String> _dropdown() => DropdownButton(
+    hint:Text('Select gender') ,
+        items: [
+          DropdownMenuItem(
+            child: Text('Male'),
+            value: 'Male',
+          ),
+          DropdownMenuItem(
+            child: Text('Female'),
+            value: 'Female',
+          ),
+        ],
+        onChanged: (value) {
+          setState(() {
+            _profile["gender"] = value;
+          });
+        },
+        value: _profile["gender"],
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -32,87 +53,86 @@ class LoginPageState extends State<LoginPage> {
           key: _formKey,
           child: Container(
             margin: EdgeInsets.all(15.0),
-            child: ListView(
-              children: <Widget>[
-                TextFormField(
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Enter some text';
-                    }
-                    return null;
-                  },
-                  onFieldSubmitted: (String value) {
-                    setState(() {
-                      _profile['name'] = value;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Name',
-                  ),
+            child: ListView(children: <Widget>[
+              TextFormField(
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Enter some text';
+                  }
+                  return null;
+                },
+                onFieldSubmitted: (String value) {
+                  setState(() {
+                    _profile['name'] = value;
+                  });
+                },
+                decoration: InputDecoration(
+                  labelText: 'Name',
                 ),
-                TextFormField(
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Enter some text';
-                    }
-                    return null;
-                  },
-                  onFieldSubmitted: (String value) {
-                    setState(() {
-                      _profile['surname'] = value;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Surname',
-                  ),
+              ),
+              TextFormField(
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Enter some text';
+                  }
+                  return null;
+                },
+                onFieldSubmitted: (String value) {
+                  setState(() {
+                    _profile['surname'] = value;
+                  });
+                },
+                decoration: InputDecoration(
+                  labelText: 'Surname',
                 ),
-                TextFormField(
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Enter some e-mail';
-                    }
-                    return null;
-                  },
-                  onFieldSubmitted: (String value) {
-                    setState(() {
-                      _profile['email'] = value;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'E-mail address',
-                  ),
+              ),
+              _dropdown(),
+              TextFormField(
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Enter some e-mail';
+                  }
+                  return null;
+                },
+                onFieldSubmitted: (String value) {
+                  setState(() {
+                    _profile['email'] = value;
+                  });
+                },
+                decoration: InputDecoration(
+                  labelText: 'E-mail address',
                 ),
-                TextFormField(
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Enter some phone';
-                    }
-                    return null;
-                  },
-                  keyboardType: TextInputType.number,
-                  onFieldSubmitted: (String value) {
-                    setState(() {
-                      _profile['phone'] = int.parse(value);
-                    });
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Phone',
-                  ),
+              ),
+              TextFormField(
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Enter some phone';
+                  }
+                  return null;
+                },
+                keyboardType: TextInputType.number,
+                onFieldSubmitted: (String value) {
+                  setState(() {
+                    _profile['phone'] = int.parse(value);
+                  });
+                },
+                decoration: InputDecoration(
+                  labelText: 'Phone',
                 ),
-                DateTimePickerFormField(
-                    format: format,
-                    editable: false,
-                    dateOnly: true,
-                    decoration: InputDecoration(
-                        labelText: 'Date', hasFloatingPlaceholder: false),
-                    onChanged: (dt) {
-                      date = dt;
-                      setState(() {
-                        _profile['birth'] = date;
-                      });
-                    }),
-              ],
-            ),
+              ),
+              DateTimePickerFormField(
+                  format: format,
+                  editable: false,
+                  dateOnly: true,
+                  decoration: InputDecoration(
+                      labelText: 'Date', hasFloatingPlaceholder: false),
+                  onChanged: (dt) {
+                    date = dt;
+                    setState(() {
+                      _profile['birth'] = date;
+                    });
+                  }),
+            ]),
           ),
         ),
         floatingActionButton: FloatingActionButton(

@@ -24,7 +24,7 @@ class FinalPage extends StatelessWidget {
                   centerTitle: false,
                   title: Text(profile['name'].toString()+"  "+ profile['surname'].toString(),
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.white70,
                         fontSize: 21.0,
                       )),
                   background: Container(
