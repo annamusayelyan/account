@@ -23,6 +23,7 @@ class LoginPageState extends State<LoginPage> {
     "email": null,
     "phone": null,
     "birth": null,
+    "married":false,
   };
 
   DropdownButton<String> _dropdown() => DropdownButton(
@@ -44,6 +45,7 @@ class LoginPageState extends State<LoginPage> {
         },
         value: _profile["gender"],
       );
+
 
   @override
   Widget build(BuildContext context) {
@@ -132,6 +134,19 @@ class LoginPageState extends State<LoginPage> {
                       _profile['birth'] = date;
                     });
                   }),
+              SwitchListTile(value: _profile['married'],
+                  title: Text("Married"),
+                  activeColor: Colors.blue,
+                  secondary: Icon(Icons.home),
+                  onChanged: (bool value) {
+
+                setState(() {
+                  _profile['married'] = value;
+                  print(_profile['married'].toString());
+                });
+
+                  }),
+
             ]),
           ),
         ),

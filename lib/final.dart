@@ -2,9 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class FinalPage extends StatelessWidget {
-  final  Map profile;
+  final Map profile;
 
   FinalPage(this.profile);
+
+  Widget _buildRelationTile() {
+    if (profile['married'] == true) {
+      return ListTile(
+        leading: Icon(Icons.done_all),
+        title: Text('Status'),
+        trailing: Text('Married'),
+      );
+    } else {
+      return ListTile(
+        leading: Icon(Icons.done),
+        title: Text('Status'),
+        trailing: Text('Not married'),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +38,10 @@ class FinalPage extends StatelessWidget {
               ],
               flexibleSpace: FlexibleSpaceBar(
                   centerTitle: false,
-                  title: Text(profile['name'].toString()+"  "+ profile['surname'].toString(),
+                  title: Text(
+                      profile['name'].toString() +
+                          "  " +
+                          profile['surname'].toString(),
                       style: TextStyle(
                         color: Colors.white70,
                         fontSize: 21.0,
@@ -62,9 +81,11 @@ class FinalPage extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.calendar_today),
-              title:Text(DateFormat('yyyy,MM,dd').format(profile['birth']).toString()),
+              title: Text(
+                  DateFormat('yyyy.MM.dd').format(profile['birth']).toString()),
               subtitle: Text("B-date"),
-            )
+            ),
+            _buildRelationTile(),
           ],
         ),
       ),
